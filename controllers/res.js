@@ -1,5 +1,6 @@
 var app = require('../reshare-app'),
     resStore = require('../data/res-store'),
+    commentStore = require('../data/comment-store'),
     auth = require('../utils/auth'),
     promiseResponse = require('../utils/promise-response');
 
@@ -28,5 +29,13 @@ function upsertResource (req, res) {
 
 // deleteResource deletes a resource
 function deleteResource (req, res) {
-  promiseResponse(resStore.remove({ _id: req.params.id }), res);
+  var promise = commentStore
+    .removeBySubjectId({
+      subjectId: req.params.id
+    })
+    .then(function () {
+      return resStore.remove({ _id: req.params.id });
+    });
+
+  promiseResponse(promise, res);
 }

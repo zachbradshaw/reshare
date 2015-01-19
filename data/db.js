@@ -32,6 +32,14 @@ function DbCollection (name) {
       });
     },
 
+    // insert works as in NEDB, except returning
+    // a promise
+    insert: function (data) {
+      return dbMakePromise(function (callback) {
+        db.insert(data, callback);
+      });
+    },
+
     // update works similarly to NEDB update, only
     // returning a promise
     update: function (query, data, options) {
