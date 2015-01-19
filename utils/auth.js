@@ -40,8 +40,13 @@ function isAuthenticated (req, res, next) {
   }
 }
 
+function isValidRole (roleName) {
+  return roleWeight[roleName] !== undefined;
+}
+
 module.exports = {
   role: role,
   isInRole: isInRole,
-  isAuthenticated: isAuthenticated
+  isAuthenticated: isAuthenticated,
+  isValidRole: isValidRole
 };

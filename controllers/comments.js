@@ -18,9 +18,13 @@ function listComments (req, res) {
 
 // addComment adds a comment to the specified subject
 function addComment (req, res) {
-  var comment = req.body;
-  comment.subjectId = req.params.res_id;
-  comment.created = new Date();
+  var comment = {
+    userId: req.user.userId,
+    text: req.body.text,
+    subjectId: req.params.res_id,
+    created: new Date()
+  };
+
   promiseResponse(commentStore.save(comment), res);
 }
 
