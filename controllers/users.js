@@ -1,18 +1,7 @@
 var app = require('../reshare-app'),
-    userStore = require('../data/user-store');
-
-app.get('/api/users', listUsers);
-app.get('/api/users/:id', getUser);
-app.post('/api/users', upsertUser);
-app.delete('/api/users/:id', disableUser);
-
-function promiseResponse(promise, res) {
-  promise.then(function (result) {
-    res.json(result || {});
-  }).catch(function (err) {
-    res.status(500).json(err);
-  })
-}
+    userStore = require('../data/user-store'),
+    auth = require('../utils/auth'),
+    promiseResponse = require('../utils/promise-response');
 
 // listUsers lists all users in the system
 function listUsers (req, res) {
@@ -29,9 +18,11 @@ function getUser (req, res) {
 //   userId: 'gihubid',
 //   role: 'admin'
 // }
-function upsertUser (req, res) {
-  promiseResponse(userStore.save(req.body), res);
-}
+var upsertUser = auth.restrictedHandler(
+  auth.role.ADMIN,
+  function (req, res) {
+    promiseResponse(userStore.save(req.body), res);
+  });
 
 // disableUser disables the specified user
 function disableUser (req, res) {
@@ -40,6 +31,15 @@ function disableUser (req, res) {
 
   promiseResponse(userStore.update(query, update), res);
 }
+
+
+// Routes
+
+app.get('/api/users', listUsers);
+app.get('/api/users/:id', getUser);
+app.post('/api/users', upsertUser);
+app.delete('/api/users/:id', disableUser);
+
 
 // Export the index view so it can optionally
 // be configured as a default route

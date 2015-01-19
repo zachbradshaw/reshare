@@ -5,6 +5,7 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     userStore = require('./data/user-store'),
+    auth = require('./utils/auth'),
     app = express();
 
 // load environment variables from .env
@@ -21,7 +22,7 @@ app.use(session({
 }));
 
 // upsert the global admin user
-userStore.save({ userId: process.env.APP_SUPER_ADMIN, role: 'admin' });
+userStore.save({ userId: process.env.APP_SUPER_ADMIN, role: auth.role.ADMIN });
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
