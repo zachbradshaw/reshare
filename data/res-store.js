@@ -51,7 +51,7 @@ var resStore = {
     }
 
     function remove(setName) {
-      update.$pull = {};
+      update.$pull = update.$pull || {};
       update.$pull[setName] = voteData.userId;
     }
 
