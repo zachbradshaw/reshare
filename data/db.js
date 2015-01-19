@@ -1,6 +1,6 @@
 var Datastore = require('nedb'),
     Q = require('q'),
-    db = new Datastore();
+    dbs = {};
 
 // dbMakePromise converts a non-promise-based
 // db call into a promise-based db-call
@@ -20,36 +20,52 @@ function dbMakePromise(dbExec) {
   return deferred.promise;
 }
 
-module.exports = {
-  // ensureIndex works similarly to NEDB ensureIndex,
-  // only returning a promise
-  ensureIndex: function (options) {
-    return dbMakePromise(function (callback) {
-      db.ensureIndex(options, callback);
-    });
-  },
+function DbCollection (name) {
+  var db = dbs[name] || (dbs[name] = new Datastore());
 
-  // update works similarly to NEDB update, only
-  // returning a promise
-  update: function (query, data, options) {
-    return dbMakePromise(function (callback) {
-      db.update(query, data, options, callback);
-    });
-  },
+  return {
+    // ensureIndex works similarly to NEDB ensureIndex,
+    // only returning a promise
+    ensureIndex: function (options) {
+      return dbMakePromise(function (callback) {
+        db.ensureIndex(options, callback);
+      });
+    },
 
-  // find works similarly to NEDB find only
-  // returning a promise
-  find: function (query, projection) {
-    return dbMakePromise(function (callback) {
-      db.find(query, projection, callback);
-    });
-  },
+    // update works similarly to NEDB update, only
+    // returning a promise
+    update: function (query, data, options) {
+      return dbMakePromise(function (callback) {
+        db.update(query, data, options, callback);
+      });
+    },
 
-  // findOne looks for a single user that
-  // matches the query see NEDB for more details
-  findOne: function (query, projection) {
-    return dbMakePromise(function (callback) {
-      db.findOne(query, projection, callback);
-    });
+    // find works similarly to NEDB find only
+    // returning a promise
+    find: function (query, projection) {
+      return dbMakePromise(function (callback) {
+        db.find(query, projection, callback);
+      });
+    },
+
+    // findOne looks for a single user that
+    // matches the query see NEDB for more details
+    findOne: function (query, projection) {
+      return dbMakePromise(function (callback) {
+        db.findOne(query, projection, callback);
+      });
+    },
+
+    // remove is just like NEDB's remove, except
+    // returning a promise
+    remove: function (query, options) {
+      return dbMakePromise(function (callback) {
+        db.remove(query, options || {}, callback);
+      });
+    }
   }
+}
+
+module.exports = {
+  collection: DbCollection
 };

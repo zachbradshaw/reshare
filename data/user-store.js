@@ -1,4 +1,4 @@
-var db = require('./db');
+var db = require('./db').collection('users');
 
 // Ensure the db has indexed userId
 db.ensureIndex({
