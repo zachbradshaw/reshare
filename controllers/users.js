@@ -1,4 +1,5 @@
-var app = require('../reshare-app');
+var app = require('../reshare-app'),
+    userStore = require('../data/user-store');
 
 app.get('/api/users', listUsers);
 app.get('/api/users/:id', getUser);
@@ -7,11 +8,20 @@ app.post('/api/users/:id', addUser);
 app.delete('/api/users/:id', disableUser);
 
 function listUsers (req, res) {
-  res.send('Hello, users!');
+  userStore.list({}).then(function (result) {
+    res.json(result || []);
+  }).catch(function (err) {
+    res.status(500).json(err);
+  });
 }
 
 function getUser (req, res) {
-  res.send('Hello, user!');
+  return userStore.list({ userId: req.params.id })
+    .then(function (result) {
+      res.json(result || []);
+    }).catch(function (err) {
+      res.status(500).json(err);
+    });
 }
 
 function addUser (req, res) {

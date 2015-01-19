@@ -2,6 +2,7 @@
   "devDependencies": {
     "express": "^4.11.0",
     "nedb": "^1.1.1",
+    "q": "^1.1.2",
     "require-dir": "^0.1.0"
   }
 }
