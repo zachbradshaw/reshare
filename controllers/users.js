@@ -4,7 +4,7 @@ var app = require('../reshare-app'),
 app.get('/api/users', listUsers);
 app.get('/api/users/:id', getUser);
 app.put('/api/users/:id', updateUser);
-app.post('/api/users/:id', addUser);
+app.post('/api/users', addUser);
 app.delete('/api/users/:id', disableUser);
 
 function listUsers (req, res) {
@@ -16,7 +16,7 @@ function listUsers (req, res) {
 }
 
 function getUser (req, res) {
-  return userStore.list({ userId: req.params.id })
+  userStore.list({ userId: req.params.id })
     .then(function (result) {
       res.json(result || []);
     }).catch(function (err) {
@@ -24,8 +24,17 @@ function getUser (req, res) {
     });
 }
 
+// Adds a user in a format like this:
+// {
+//   userId: 'gihubid',
+//   role: 'admin'
+// }
 function addUser (req, res) {
-  res.send('Added, user!');
+  userStore.save(req.body).then(function (result) {
+    res.json(result || {});
+  }).catch(function (err) {
+    res.status(500).json(err);
+  });
 }
 
 function updateUser (req, res) {
