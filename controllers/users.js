@@ -3,46 +3,42 @@ var app = require('../reshare-app'),
 
 app.get('/api/users', listUsers);
 app.get('/api/users/:id', getUser);
-app.put('/api/users/:id', updateUser);
-app.post('/api/users', addUser);
+app.post('/api/users', upsertUser);
 app.delete('/api/users/:id', disableUser);
 
-function listUsers (req, res) {
-  userStore.list({}).then(function (result) {
-    res.json(result || []);
+function promiseResponse(promise, res) {
+  promise.then(function (result) {
+    res.json(result || {});
   }).catch(function (err) {
     res.status(500).json(err);
-  });
+  })
 }
 
+// listUsers lists all users in the system
+function listUsers (req, res) {
+  promiseResponse(userStore.list({}), res);
+}
+
+// getUser gets a user by id
 function getUser (req, res) {
-  userStore.list({ userId: req.params.id })
-    .then(function (result) {
-      res.json(result || []);
-    }).catch(function (err) {
-      res.status(500).json(err);
-    });
+  promiseResponse(userStore.list({ userId: req.params.id }), res);
 }
 
-// Adds a user in a format like this:
+// Adds/updates a user in a format like this:
 // {
 //   userId: 'gihubid',
 //   role: 'admin'
 // }
-function addUser (req, res) {
-  userStore.save(req.body).then(function (result) {
-    res.json(result || {});
-  }).catch(function (err) {
-    res.status(500).json(err);
-  });
+function upsertUser (req, res) {
+  promiseResponse(userStore.save(req.body), res);
 }
 
-function updateUser (req, res) {
-  res.send('Updated, user!');
-}
-
+// disableUser disables the specified user
 function disableUser (req, res) {
-  res.send('Disabled, user!');
+  var query = { userId: req.params.id },
+      update = { $set: { disabled: true } };
+
+  promiseResponse(userStore.update(query, update), res);
 }
 
 // Export the index view so it can optionally
