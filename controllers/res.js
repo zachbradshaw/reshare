@@ -10,7 +10,7 @@ app.get('/api/res', listResources);
 app.get('/api/res/:id', getResource);
 app.post('/api/res', auth.isAuthenticated, upsertResource);
 app.delete('/api/res/:id', auth.isAuthenticated, deleteResource);
-
+app.post('/api/res/:id/votes', auth.isAuthenticated, vote);
 
 // listResources lists all resources
 function listResources (req, res) {
@@ -24,7 +24,16 @@ function getResource (req, res) {
 
 // upsertResource adds/updates a resource
 function upsertResource (req, res) {
-  promiseResponse(resStore.save(req.body), res);
+  var resource = {
+    userId: req.user.userId,
+    url: req.body.url,
+    description: req.body.description,
+    tags: req.body.tags || [],
+    upvotes: [],
+    downvotes: []
+  };
+
+  promiseResponse(resStore.save(resource), res);
 }
 
 // deleteResource deletes a resource
@@ -36,6 +45,19 @@ function deleteResource (req, res) {
     .then(function () {
       return resStore.remove({ _id: req.params.id });
     });
+
+  promiseResponse(promise, res);
+}
+
+// vote upvotes or downvotes depending on the value
+// of the vote parameter
+function vote (req, res) {
+  var voteValue = req.body.vote > 0 ? 1 : req.body.vote < 0 ? -1 : 0;
+  var promise = resStore.vote({
+    resId: req.params.id,
+    userId: req.user.userId,
+    vote: voteValue
+  });
 
   promiseResponse(promise, res);
 }

@@ -44,7 +44,7 @@ function DbCollection (name) {
     // returning a promise
     update: function (query, data, options) {
       return dbMakePromise(function (callback) {
-        db.update(query, data, options, callback);
+        db.update(query, data, options || {}, callback);
       });
     },
 

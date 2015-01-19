@@ -34,6 +34,42 @@ var resStore = {
     return db.findOne(query);
   },
 
+  // vote adds an upvote or downvote
+  // voteData should look like this:
+  // {
+  //   resId: resourceId,
+  //   vote: 1, -1, 0
+  //   userId: <the user id>
+  // }
+  vote: function (voteData) {
+    var query = { _id: voteData.resId },
+        update = { };
+
+    function add(setName) {
+      update.$addToSet = {};
+      update.$addToSet[setName] = voteData.userId;
+    }
+
+    function remove(setName) {
+      update.$pull = {};
+      update.$pull[setName] = voteData.userId;
+    }
+
+    if (voteData.vote > 0) {
+      add('upvotes');
+      remove('downvotes');
+    } else if (voteData.vote < 0) {
+      add('downvotes');
+      remove('upvotes');
+    } else {
+      remove('upvotes');
+      remove('downvotes');
+    }
+
+    return db.update(query, update);
+  },
+
+  // remove removes the specified resource
   remove: function (query) {
     return db.remove(query);
   }
