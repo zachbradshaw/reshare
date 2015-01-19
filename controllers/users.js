@@ -39,7 +39,7 @@ function upsertUser (req, res) {
   };
 
   if (!auth.isValidRole(user.role)) {
-    res.code(400).json({ message: 'Role "' + user.role + '" is not valid' });
+    res.status(400).json({ message: 'Role "' + user.role + '" is not valid' });
   } else {
     promiseResponse(userStore.save(user), res);
   }
