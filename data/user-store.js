@@ -19,8 +19,13 @@ var userStore = {
   },
 
   // list users
-  list: function (query) {
+  find: function (query) {
     return db.find(query);
+  },
+
+  // find one user
+  findOne: function (query) {
+    return db.findOne(query);
   }
 };
 

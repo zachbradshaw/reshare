@@ -43,5 +43,13 @@ module.exports = {
     return dbMakePromise(function (callback) {
       db.find(query, projection, callback);
     });
+  },
+
+  // findOne looks for a single user that
+  // matches the query see NEDB for more details
+  findOne: function (query, projection) {
+    return dbMakePromise(function (callback) {
+      db.findOne(query, projection, callback);
+    });
   }
 };

@@ -16,12 +16,12 @@ function promiseResponse(promise, res) {
 
 // listUsers lists all users in the system
 function listUsers (req, res) {
-  promiseResponse(userStore.list({}), res);
+  promiseResponse(userStore.find({}), res);
 }
 
 // getUser gets a user by id
 function getUser (req, res) {
-  promiseResponse(userStore.list({ userId: req.params.id }), res);
+  promiseResponse(userStore.findOne({ userId: req.params.id }), res);
 }
 
 // Adds/updates a user in a format like this:
