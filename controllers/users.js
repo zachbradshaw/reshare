@@ -5,12 +5,11 @@ var app = require('../reshare-app'),
 
 // Routes
 
-app.get('/api/users', auth.isAuthenticated, listUsers);
+app.get('/api/users', listUsers);
 app.get('/api/users/me', auth.isAuthenticated, getMe);
-app.get('/api/users/:id', auth.isAuthenticated, getUser);
+app.get('/api/users/:id', getUser);
 app.post('/api/users', auth.isInRole(auth.role.ADMIN), upsertUser);
 app.delete('/api/users/:id', auth.isInRole(auth.role.ADMIN), disableUser);
-
 
 // listUsers lists all users in the system
 function listUsers (req, res) {

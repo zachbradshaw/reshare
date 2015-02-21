@@ -5,7 +5,6 @@ var app = require('../reshare-app'),
     promiseResponse = require('../utils/promise-response');
 
 // Routes
-
 app.get('/api/res', listResources);
 app.get('/api/res/:id', getResource);
 app.post('/api/res', auth.isAuthenticated, upsertResource);

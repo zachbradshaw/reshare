@@ -1,6 +1,5 @@
 var app = require('./reshare-app'),
-    requireDir = require('require-dir'),
-    usersApi = require('./controllers/users');
+    requireDir = require('require-dir');
 
 // Require the API controllers
 requireDir('./controllers', { recurse: true });

@@ -5,11 +5,9 @@ var app = require('../reshare-app'),
     promiseResponse = require('../utils/promise-response');
 
 // Routes
-
 app.get('/api/res/:res_id/comments', listComments);
 app.post('/api/res/:res_id/comments', auth.isAuthenticated, addComment);
 app.delete('/api/res/:res_id/comments/:id', auth.isAuthenticated, deleteComment);
-
 
 // listComments lists all comments for a subject (e.g. a resource)
 function listComments (req, res) {

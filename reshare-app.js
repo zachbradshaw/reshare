@@ -38,10 +38,23 @@ everyauth.github
   .findOrCreateUser(function (session, accessToken, accessTokenExtra, githubUserMetadata) {
     var promise = this.Promise();
 
-    userStore.findOne({ userId: githubUserMetadata.login }).then(function (user) {
+    var userRef = { userId: githubUserMetadata.login };
+    console.log('Looking up ' + githubUserMetadata.login);
+    userStore.findOne(userRef).then(function (user) {
+      if (user) {
+        return user;
+      }
+
+      user = {
+        userId: userRef.userId,
+        role: auth.role.USER
+      };
+
+      return userStore.save(user).then(function () {
+        return userStore.findOne(userRef);
+      });
+    }).then(function (user) {
       promise.fulfill(user);
-    }).catch(function (err) {
-      promise.fulfill([err]);
     });
 
     return promise;
