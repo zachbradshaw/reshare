@@ -6,6 +6,7 @@ var express = require('express'),
     session = require('express-session'),
     userStore = require('./data/user-store'),
     auth = require('./utils/auth'),
+    config = require('./gulp/config'),
     app = express();
 
 // load environment variables from .env
@@ -61,6 +62,6 @@ everyauth.everymodule.findUserById(function (userId, callback) {
 app.use(everyauth.middleware(app));
 
 // Specify src as the place where public files are found
-app.use(express.static(__dirname + '/src'));
+app.use(express.static(__dirname + config.dest.root.replace('.', '')));
 
 module.exports = app;
