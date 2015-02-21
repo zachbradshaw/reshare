@@ -6,7 +6,7 @@
 
 
 var gulp = require('gulp'),
-    connect = require('gulp-connect'),
+    livereload = require('gulp-livereload'),
     config = require('../config'),
     scriptDefinitions = require('../script-definitions'),
     merge = require('merge-stream'),
@@ -18,7 +18,7 @@ var gulp = require('gulp'),
 
 gulp.task('js', function() {
   return buildJs()
-    .pipe(connect.reload());
+    .pipe(livereload());
 });
 
 gulp.task('js:release', function () {

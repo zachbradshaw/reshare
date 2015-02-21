@@ -1,13 +1,11 @@
 // serve serves files from the /dist directory
 
 var gulp = require('gulp'),
-    connect = require('gulp-connect'),
-    config = require('../config');
+  config = require('../config'),
+  livereload = require('gulp-livereload'),
+  server = require('gulp-develop-server');
 
-gulp.task('serve', function () {
-  connect.server({
-    root: config.dest.root,
-    port: 8000,
-    livereload: true
-  });
+// run server
+gulp.task('serve', function() {
+  server.listen({ path: './app.js' }, livereload.listen);
 });

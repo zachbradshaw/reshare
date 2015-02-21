@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     addsrc = require('gulp-add-src'),
     gulpif = require('gulp-if'),
     minifyHtml = require('gulp-minify-html'),
-    connect = require('gulp-connect'),
+    livereload = require('gulp-livereload'),
     config = require('../config');
 
 gulp.task('html', function() {
@@ -23,5 +23,5 @@ function buildHtml(options) {
     .pipe(addsrc(config.src.html))
     .pipe(gulpif(options.minify, minifyHtml()))
     .pipe(gulp.dest(config.dest.html))
-    .pipe(connect.reload());
+    .pipe(livereload());
 }

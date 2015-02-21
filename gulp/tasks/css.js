@@ -1,7 +1,7 @@
 // css and css:release builds the css files
 
 var gulp = require('gulp'),
-    connect = require('gulp-connect'),
+    livereload = require('gulp-livereload'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     gulpif = require('gulp-if'),
@@ -14,7 +14,7 @@ gulp.task('css:release', function () {
 
 gulp.task('css', function () {
   return buildCss()
-    .pipe(connect.reload());
+    .pipe(livereload());
 });
 
 function buildCss(options) {
