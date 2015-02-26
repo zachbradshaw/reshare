@@ -15,6 +15,7 @@ app.controller('MainNavCtrl',
     };
   }]);
 
+
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
     templateUrl: 'shares/shares.html',
