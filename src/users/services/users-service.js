@@ -6,7 +6,11 @@ app.factory('usersService', ['$http', '$q', '$log', function($http, $q, $log) {
   // that makes $http calls for you in a standard
   // way, handling post, put, delete, etc
   function get(url) {
-    return $http.get(url).then(function (result) {
+    return processAjaxPromise($http.get(url));
+  }
+
+  function processAjaxPromise(p) {
+    return p.then(function (result) {
       return result.data;
     })
     .catch(function (error) {
@@ -25,6 +29,10 @@ app.factory('usersService', ['$http', '$q', '$log', function($http, $q, $log) {
       }
 
       return get('/api/users/' + userId);
+    },
+
+    addUser: function (user) {
+      return processAjaxPromise($http.post('/api/users', user));
     }
   };
 }]);
