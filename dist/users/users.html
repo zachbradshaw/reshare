@@ -1,0 +1,20 @@
+<h1>Users</h1>
+
+<form ng-submit="vm.addUser()">
+  <input ng-model="vm.newUser.userId" placeholder="GitHub username">
+  <select ng-model="vm.newUser.role">
+    <option value="admin">
+      Admin
+    </option>
+    <option value="user">
+      User
+    </option>
+  </select>
+  <button>+ Add User</button>
+</form>
+
+<ul>
+  <li ng-repeat="user in vm.users | orderBy:'userId'">
+    <a href="#/users/{{user.userId}}">{{user.userId}}</a>
+  </li>
+</ul>
