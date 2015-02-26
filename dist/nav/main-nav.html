@@ -1,6 +1,6 @@
 <nav class="main-nav" ng-controller="MainNavCtrl as vm">
   <a class="main-nav-link" ng-class="{active: vm.isActive('/shares') || vm.isActive('/')}" href="#/shares">Shares</a>
-  <a class="main-nav-link" ng-class="{active: vm.isActive('/new-share') || vm.isActive('/')}" href="#/new-share">New Share</a>
+  <a class="main-nav-link" ng-class="{active: vm.isActive('/new-share')}" href="#/shares/new-share">New Share</a>
   <a class="main-nav-link" ng-class="{active: vm.isActive('/users')}" ng-href="#/users">Users</a>
   <a class="main-nav-link" href="/auth/github">Login</a>
 </nav>
