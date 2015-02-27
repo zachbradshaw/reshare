@@ -40,7 +40,7 @@ app.factory('shareService', ['$http', '$log', function($http, $log) {
     },
 
     deleteShare: function (id) {
-      return remove('/api/res/' + id)
+      return remove('/api/res/' + id);
     }
   };
 }]);

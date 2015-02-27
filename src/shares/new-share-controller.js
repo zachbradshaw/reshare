@@ -4,7 +4,7 @@ app.config(['$routeProvider', function($routeProvider) {
     controllerAs: 'vm',
     templateUrl: 'shares/new-share.html'
   });
-}]).controller('NewShareCtrl', ['$location', 'Share', 'shareService', function(location, Share, resStore, shareService) {
+}]).controller('NewShareCtrl', ['$location', 'Share', 'shareService', function($location, Share, shareService) {
   var self = this;
 
   self.share = Share();
@@ -14,6 +14,10 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.goToShares = function () {
-    $location.path('/shares')
+    $location.path('/shares');
   };
+
+  self.addShare = function () {
+    shareService.addShare(self.share).then(self.goToShares);
+  }
 }]);

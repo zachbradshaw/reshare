@@ -21,7 +21,7 @@ app.config(['$routeProvider', function($routeProvider) {
     controllerAs: 'vm',
     templateUrl: 'shares/new-share.html'
   });
-}]).controller('NewShareCtrl', ['$location', 'Share', 'shareService', function(location, Share, resStore, shareService) {
+}]).controller('NewShareCtrl', ['$location', 'Share', 'shareService', function($location, Share, shareService) {
   var self = this;
 
   self.share = Share();
@@ -31,8 +31,12 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.goToShares = function () {
-    $location.path('/shares')
+    $location.path('/shares');
   };
+
+  self.addShare = function () {
+    shareService.addShare(self.share).then(self.goToShares);
+  }
 }]);
 
 app.factory('Share', function () {
@@ -50,15 +54,23 @@ app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
     templateUrl: 'shares/shares.html',
     controller: 'SharesCtrl',
-    controllerAs: 'vm'
+    controllerAs: 'vm',
+    resolve: {
+      shares: ['shareService', function (shareService) {
+        return shareService.getShareList();
+      }]
+    }
   };
 
   $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/shares', routeDefinition);
 }])
-.controller('SharesCtrl', [function () {
-  // TODO: load these via AJAX
-  this.shares = [];
+.controller('SharesCtrl', ['shares', 'shareService', 'voteService', 'Share', function (shares, shareService, voteService, Share) {
+
+  var self = this;
+
+  self.shares = shares;
+
 }]);
 
 app.config(['$routeProvider', function($routeProvider) {
@@ -183,7 +195,36 @@ app.factory('shareService', ['$http', '$log', function($http, $log) {
     },
 
     deleteShare: function (id) {
-      return remove('/api/res/' + id)
+      return remove('/api/res/' + id);
+    }
+  };
+}]);
+
+app.factory('voteService', ['$http', function(http) {
+  function post(share) {
+    return processAjaxPromise($http.post(share));
+  }
+
+  function processAjaxPromise(p) {
+    return p.then(function (result) {
+      return result.data;
+    })
+    .catch(function (error) {
+      $log.log(error);
+    });
+  }
+
+  return {
+    upvote: function (share) {
+      return post('/api/res/' + id/votes).then(function () {
+        return { vote: 1 }
+      })
+    },
+
+    downvote: function (share) {
+      return post('/api/res/' + id/votes).then(function () {
+        return { vote: -1 }
+      })
     }
   };
 }]);

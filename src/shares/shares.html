@@ -1,7 +1,9 @@
 <h1>Shares</h1>
 
 <ul>
-  <li ng-repeat="share in shares">
-    TODO...
+  <li ng-repeat="share in vm.shares">
+    <button ng-click="vm.upvote(share)">^</button>
+    <button ng-click="vm.downvote(share)">v</button>
+    <a href="{{share.url}}">{{share.description}}</a>
   </li>
 </ul>
