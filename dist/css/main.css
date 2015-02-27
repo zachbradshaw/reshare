@@ -124,3 +124,15 @@ button {
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important; }
+
+.user-role {
+  font-size: 1.1em;
+  background: white;
+  border-radius: 0;
+  width: 7em; }
+
+.user-name {
+  border-radius: .25em; }
+
+.add-user__btn {
+  border-radius: .25em; }

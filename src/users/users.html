@@ -1,8 +1,8 @@
 <h1>Users</h1>
 
 <form ng-submit="vm.addUser()">
-  <input ng-model="vm.newUser.userId" placeholder="GitHub username">
-  <select ng-model="vm.newUser.role">
+  <input class="user-name" ng-model="vm.newUser.userId" placeholder="GitHub username">
+  <select class="user-role" ng-model="vm.newUser.role">
     <option value="admin">
       Admin
     </option>
@@ -10,7 +10,7 @@
       User
     </option>
   </select>
-  <button>+ Add User</button>
+  <button class="add-user__btn">+ Add User</button>
 </form>
 
 <ul>
