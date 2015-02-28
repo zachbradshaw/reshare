@@ -1,4 +1,4 @@
-<h1 class="shares-title">Shares</h1>
+<h1 class="shares-title">Resources</h1>
 
 <ul>
   <li class="list-item" ng-repeat="share in vm.shares">
@@ -11,7 +11,7 @@
     <span class="link-container">
       <a class="link-description" href="{{share.url}}">{{share.description}}</a>
       <a href="{{share.url}}" class="link-website">({{share.url}})</a>
-      <a href="#/shares/comments" class="comments">
+      <a href="#/shares/{{share._id}}/comments" class="comments">
         comments
       </a>
       <button class="remove-resource" ng-click="vm.remove(share._id)">X</button>
