@@ -1,12 +1,20 @@
-<h1>Shares</h1>
+<h1 class="shares-title">Shares</h1>
 
 <ul>
-  <li ng-repeat="share in vm.shares">
-    <button ng-click="vm.upvote(share._id)">^</button>
-    <button ng-click="vm.downvote(share._id)">v</button>
-    <span>{{share.upvotes}} | {{share.downvotes}}</span>
-    <a href="{{share.url}}">{{share.description}}</a>
-    <!-- <span>Tags: {{share.tags}}</span> -->
-    <button ng-click="vm.remove(share._id)">X</button>
+  <li class="list-item" ng-repeat="share in vm.shares">
+    <div class="vote-container">
+      <div class="vote" ng-click="vm.upvote(share._id)">^</div>
+      <div class="vote-count">{{share.upvotes - share.downvotes}}</div>
+      <div class="vote" ng-click="vm.downvote(share._id)">v</div>
+    </div>
+
+    <span class="link-container">
+      <a class="link-description" href="{{share.url}}">{{share.description}}</a>
+      <span class="link-website">(website.com)</span>
+      <div class="comments">
+        comments
+      </div>
+      <button ng-click="vm.remove(share._id)">X</button>
+    </span>
   </li>
 </ul>
