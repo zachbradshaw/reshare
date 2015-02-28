@@ -29,6 +29,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.remove = function (id) {
     shareService.deleteShare(id);
-  }
+  };
 
 }]);

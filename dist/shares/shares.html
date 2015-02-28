@@ -10,11 +10,11 @@
 
     <span class="link-container">
       <a class="link-description" href="{{share.url}}">{{share.description}}</a>
-      <span class="link-website">(website.com)</span>
-      <div class="comments">
+      <a href="{{share.url}}" class="link-website">({{share.url}})</a>
+      <a href="#/shares/comments" class="comments">
         comments
-      </div>
-      <button ng-click="vm.remove(share._id)">X</button>
+      </a>
+      <button class="remove-resource" ng-click="vm.remove(share._id)">X</button>
     </span>
   </li>
 </ul>
