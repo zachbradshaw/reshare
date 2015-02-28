@@ -136,3 +136,50 @@ button {
 
 .add-user__btn {
   border-radius: .25em; }
+
+.shares-title {
+  margin-top: -0.5em; }
+
+.list-item {
+  background: #F0F3FC;
+  padding: 0.5em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em; }
+
+.link-description {
+  font-size: 1.25em; }
+
+.link-description:hover {
+  color: #2186DE; }
+
+.link-website {
+  font-size: 0.6em; }
+
+.link-container {
+  position: absolute;
+  margin-left: 1em;
+  margin-top: 0.5em; }
+
+.comments {
+  width: 5em;
+  font-size: 0.7em;
+  margin-top: 0.3em; }
+
+.comments:hover {
+  cursor: pointer;
+  text-decoration: underline; }
+
+.vote-container {
+  display: inline-block;
+  width: 1em;
+  text-align: center; }
+
+.vote {
+  font-family: votes; }
+
+.vote:hover {
+  cursor: pointer; }
+
+.vote-count {
+  margin-top: -2px;
+  margin-bottom: -3px; }
