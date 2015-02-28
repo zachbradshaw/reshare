@@ -1,6 +1,6 @@
-app.factory('voteService', ['$http', function(http) {
-  function post(share) {
-    return processAjaxPromise($http.post(share));
+app.factory('voteService', ['$http', function($http) {
+  function post(url, data) {
+    return processAjaxPromise($http.post(url, data));
   }
 
   function processAjaxPromise(p) {
@@ -13,16 +13,13 @@ app.factory('voteService', ['$http', function(http) {
   }
 
   return {
-    upvote: function (share) {
-      return post('/api/res/' + id/votes).then(function () {
-        return { vote: 1 }
-      })
+    upvote: function (id) {
+      alert('UPVOTE');
+      return post('/api/res/' + id + '/votes', { vote: 1 });
     },
 
-    downvote: function (share) {
-      return post('/api/res/' + id/votes).then(function () {
-        return { vote: -1 }
-      })
+    downvote: function (id) {
+      return post('/api/res/' + id + '/votes', { vote: -1 });
     }
   };
 }]);

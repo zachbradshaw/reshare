@@ -13,10 +13,18 @@ app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/shares', routeDefinition);
 }])
-.controller('SharesCtrl', ['shares', 'shareService', 'voteService', 'Share', function (shares, shareService, voteService, Share) {
+.controller('SharesCtrl', ['shares', 'shareService', 'Share', 'voteService', function (shares, shareService, Share, voteService) {
 
   var self = this;
 
   self.shares = shares;
+
+  self.upvote = function (share) {
+    voteService.upvote(share);
+  };
+
+  self.downvote = function (share) {
+    voteService.downvote(share);
+  };
 
 }]);

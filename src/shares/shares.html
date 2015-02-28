@@ -2,8 +2,9 @@
 
 <ul>
   <li ng-repeat="share in vm.shares">
-    <button ng-click="vm.upvote(share)">^</button>
-    <button ng-click="vm.downvote(share)">v</button>
+    <button ng-click="vm.upvote(share._id)">^</button>
+    <button ng-click="vm.downvote(share._id)">v</button>
+    <span>{{share.upvotes - share.downvotes}}</span>
     <a href="{{share.url}}">{{share.description}}</a>
   </li>
 </ul>

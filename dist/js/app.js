@@ -1,6 +1,21 @@
 // The root module for our Angular application
 var app = angular.module('app', ['ngRoute']);
 
+app.factory('commentService', ['$http', function($http) {
+
+}]);
+
+app.factory('Comment', function () {
+  return function (spec) {
+    spec = spec || {};
+    return {
+      userId: spec.userId,
+      content: spec.content,
+      created: new Date.now()
+    }
+  }
+});
+
 app.controller('MainNavCtrl',
   ['$location', 'StringUtil', function($location, StringUtil) {
     var self = this;
@@ -65,11 +80,19 @@ app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/shares', routeDefinition);
 }])
-.controller('SharesCtrl', ['shares', 'shareService', 'voteService', 'Share', function (shares, shareService, voteService, Share) {
+.controller('SharesCtrl', ['shares', 'shareService', 'Share', 'voteService', function (shares, shareService, Share, voteService) {
 
   var self = this;
 
   self.shares = shares;
+
+  self.upvote = function (share) {
+    voteService.upvote(share);
+  };
+
+  self.downvote = function (share) {
+    voteService.downvote(share);
+  };
 
 }]);
 
@@ -200,9 +223,9 @@ app.factory('shareService', ['$http', '$log', function($http, $log) {
   };
 }]);
 
-app.factory('voteService', ['$http', function(http) {
-  function post(share) {
-    return processAjaxPromise($http.post(share));
+app.factory('voteService', ['$http', function($http) {
+  function post(url, data) {
+    return processAjaxPromise($http.post(url, data));
   }
 
   function processAjaxPromise(p) {
@@ -215,16 +238,13 @@ app.factory('voteService', ['$http', function(http) {
   }
 
   return {
-    upvote: function (share) {
-      return post('/api/res/' + id/votes).then(function () {
-        return { vote: 1 }
-      })
+    upvote: function (id) {
+      alert('UPVOTE');
+      return post('/api/res/' + id + '/votes', { vote: 1 });
     },
 
-    downvote: function (share) {
-      return post('/api/res/' + id/votes).then(function () {
-        return { vote: -1 }
-      })
+    downvote: function (id) {
+      return post('/api/res/' + id + '/votes', { vote: -1 });
     }
   };
 }]);
