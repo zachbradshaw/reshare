@@ -11,7 +11,7 @@
 .main-nav {
   background: #6067b0;
   color: #FFF;
-  padding: 0 2em;
+  padding: 0;
 }
 
 .app-icon {
@@ -29,9 +29,15 @@
 }
 
 .main-nav-link {
-  display: inline-block;
-  padding: 1em 1em;
+  display: inline-flex;
+  padding: 1.5em 1em;
   color: inherit;
+}
+
+.main-nav-logo {
+  display: inline-block;
+  padding: .5em 1em;
+  font-size: 2em;
 }
 
 .main-nav-link:hover {

@@ -5,6 +5,6 @@ app.factory('Comment', function () {
       userId: spec.userId,
       content: spec.content,
       created: new Date.now()
-    }
-  }
+    };
+  };
 });

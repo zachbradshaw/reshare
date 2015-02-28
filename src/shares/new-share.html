@@ -1,7 +1,11 @@
-<h1>New Share</h1>
+<div class="new-resource__container">
+  <h1 class="new-resource__header">New Resource</h1>
 
-<form ng-submit="vm.addShare()">
-  <input type="text" ng-model="vm.share.url" placeholder="http://www.example.com">
-  <input type="textarea" ng-model="vm.share.description" placeholder="link description">
-  <button>Submit</button>
-</form>
+  <form ng-submit="vm.addShare()">
+    <input type="text" ng-model="vm.share.url" class="new-resource__url" placeholder="http://www.example.com">
+    <input type="textarea" ng-model="vm.share.description" class="new-resource__description" placeholder="link description">
+    <input type="text" ng-model="vm.share.tags" class="new-resource__tags" placeholder="resource tags">
+    <button class="new-resource__submit">Submit</button>
+  </form>
+
+</div>

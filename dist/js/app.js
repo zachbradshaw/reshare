@@ -12,23 +12,9 @@ app.factory('Comment', function () {
       userId: spec.userId,
       content: spec.content,
       created: new Date.now()
-    }
-  }
-});
-
-app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', function($location, StringUtil) {
-    var self = this;
-
-    self.isActive = function (path) {
-      // The default route is a special case.
-      if (path === '/') {
-        return $location.path() === '/';
-      }
-
-      return StringUtil.startsWith($location.path(), path);
     };
-  }]);
+  };
+});
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/shares/new-share', {
@@ -51,7 +37,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.addShare = function () {
     shareService.addShare(self.share).then(self.goToShares);
-  }
+  };
 }]);
 
 app.factory('Share', function () {
@@ -94,7 +80,25 @@ app.config(['$routeProvider', function($routeProvider) {
     voteService.downvote(share);
   };
 
+  self.remove = function (id) {
+    shareService.deleteShare(id);
+  }
+
 }]);
+
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', function($location, StringUtil) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+
+      return StringUtil.startsWith($location.path(), path);
+    };
+  }]);
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
@@ -239,7 +243,6 @@ app.factory('voteService', ['$http', function($http) {
 
   return {
     upvote: function (id) {
-      alert('UPVOTE');
       return post('/api/res/' + id + '/votes', { vote: 1 });
     },
 

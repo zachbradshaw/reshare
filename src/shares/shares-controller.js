@@ -27,4 +27,8 @@ app.config(['$routeProvider', function($routeProvider) {
     voteService.downvote(share);
   };
 
+  self.remove = function (id) {
+    shareService.deleteShare(id);
+  }
+
 }]);
