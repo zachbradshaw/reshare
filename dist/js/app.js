@@ -124,10 +124,13 @@ app.config(['$routeProvider', function($routeProvider) {
     shareService.deleteShare(id);
   };
 
+<<<<<<< HEAD
   self.goToComments = function (id) {
     $location.path('/shares/' + id + '/comments');
   };
 
+=======
+>>>>>>> 6d8b52c5c6b512cdd9c528851e4c0f1fc5e7a924
 }]);
 
 app.config(['$routeProvider', function($routeProvider) {

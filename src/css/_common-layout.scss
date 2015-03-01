@@ -34,6 +34,10 @@
   color: inherit;
 }
 
+.main-nav-link-container {
+  float: right;
+}
+
 .main-nav-logo {
   display: inline-block;
   padding: .5em 1em;
@@ -41,8 +45,9 @@
 }
 
 .main-nav-link:hover {
-  background: $alt-accent-color;
+  // background: #515AA4;
   color: inherit;
+  text-decoration: underline;
 }
 
 .main-nav-link.active {
