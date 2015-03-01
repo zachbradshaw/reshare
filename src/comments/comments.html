@@ -1,3 +1,16 @@
 <h1>
-  Comments For This Share
+  Comments for this Resource
 </h1>
+
+<form ng-submit="vm.addComment(comment.subjectId)">
+  <textarea placeholder="Enter comment here"></textarea>
+  <button>Submit</button>
+</form>
+
+<div>
+  Comments
+</div>
+
+<div ng-repeat="comment in vm.comments">
+
+</div>

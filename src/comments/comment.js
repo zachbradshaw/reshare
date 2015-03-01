@@ -3,8 +3,9 @@ app.factory('Comment', function () {
     spec = spec || {};
     return {
       userId: spec.userId,
-      content: spec.content,
-      created: new Date.now()
+      text: spec.text,
+      created: Date.now(),
+      subjectId: spec.subjectId
     };
   };
 });

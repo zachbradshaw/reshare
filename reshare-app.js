@@ -38,7 +38,11 @@ everyauth.github
   .findOrCreateUser(function (session, accessToken, accessTokenExtra, githubUserMetadata) {
     var promise = this.Promise();
 
-    var userRef = { userId: githubUserMetadata.login };
+    var userRef = {
+      userId: githubUserMetadata.login,
+      userNum: githubUserMetadata.id,
+      userPic: githubUserMetadata.avatar_url
+    };
     console.log('Looking up ' + githubUserMetadata.login);
     userStore.findOne(userRef).then(function (user) {
       if (user) {
@@ -47,6 +51,8 @@ everyauth.github
 
       user = {
         userId: userRef.userId,
+        userNum: userRef.userNum,
+        userPic: userRef.userPic,
         role: auth.role.USER
       };
 

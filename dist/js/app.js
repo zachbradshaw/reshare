@@ -6,31 +6,54 @@ app.factory('Comment', function () {
     spec = spec || {};
     return {
       userId: spec.userId,
-      content: spec.content,
-      created: new Date.now()
+      text: spec.text,
+      created: Date.now(),
+      subjectId: spec.subjectId
     };
   };
 });
 
 app.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/comments', {
+  $routeProvider.when('/shares/:id/comments', {
     controller: 'commentsCtrl',
     controllerAs: 'vm',
-    templateUrl: 'comments/comments.html'
+    templateUrl: 'comments/comments.html',
+    resolve: {
+      comments: ['commentService', function (commentService) {
+        return commentService.getCommentList();
+      }]
+    }
   });
 }])
-.controller('commentsCtrl', ['$location', 'commentService', 'Comment', function ($location, commentService, Comment) {
+.controller('commentsCtrl', ['$location', 'commentService', 'comments', 'Comment', function ($location, commentService, comments, Comment) {
   var self = this;
 
-  self.list = function (id) {
+  self.comments = Comment();
+
+  self.getCommentList = function (id) {
     commentService.getCommentList(id);
   };
 
-  self.addComment = function (id) {
-    commentService.addComment(id);
+  self.addComment = function () {
+    console.log(self);
+    commentService.addComment(self.comments);
   };
 
 }]);
+
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', function($location, StringUtil) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+
+      return StringUtil.startsWith($location.path(), path);
+    };
+  }]);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/shares/new-share', {
@@ -82,7 +105,8 @@ app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/shares', routeDefinition);
 }])
-.controller('SharesCtrl', ['shares', 'shareService', 'Share', 'voteService', function (shares, shareService, Share, voteService) {
+.controller('SharesCtrl', ['$location', 'shares', 'shareService', 'Share',
+  'voteService', function ($location, shares, shareService, Share, voteService) {
 
   var self = this;
 
@@ -100,21 +124,11 @@ app.config(['$routeProvider', function($routeProvider) {
     shareService.deleteShare(id);
   };
 
+  self.goToComments = function (id) {
+    $location.path('/shares/' + id + '/comments');
+  };
+
 }]);
-
-app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', function($location, StringUtil) {
-    var self = this;
-
-    self.isActive = function (path) {
-      // The default route is a special case.
-      if (path === '/') {
-        return $location.path() === '/';
-      }
-
-      return StringUtil.startsWith($location.path(), path);
-    };
-  }]);
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
@@ -197,7 +211,34 @@ app.factory('StringUtil', function() {
 });
 
 app.factory('commentService', ['$http', function($http) {
+  function post(url, data) {
+    return processAjaxPromise($http.post(url, data));
+  }
 
+  function get(url) {
+    return processAjaxPromise($http.get(url));
+  }
+
+  function processAjaxPromise(p) {
+    return p.then(function (result) {
+      return result.data;
+    })
+    .catch(function (error) {
+      $log.log(error);
+    });
+  }
+
+  return {
+
+    getCommentList: function (id) {
+      return get('/api/res/' + id + '/comments');
+    },
+
+    addComment: function (id) {
+      alert('added comment');
+      return post('/api/res/' + id + '/comments', { text: 'text' });
+    }
+  };
 }]);
 
 app.factory('shareService', ['$http', '$log', function($http, $log) {

@@ -13,7 +13,8 @@ app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', routeDefinition);
   $routeProvider.when('/shares', routeDefinition);
 }])
-.controller('SharesCtrl', ['shares', 'shareService', 'Share', 'voteService', function (shares, shareService, Share, voteService) {
+.controller('SharesCtrl', ['$location', 'shares', 'shareService', 'Share',
+  'voteService', function ($location, shares, shareService, Share, voteService) {
 
   var self = this;
 
@@ -29,6 +30,10 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.remove = function (id) {
     shareService.deleteShare(id);
+  };
+
+  self.goToComments = function (id) {
+    $location.path('/shares/' + id + '/comments');
   };
 
 }]);
