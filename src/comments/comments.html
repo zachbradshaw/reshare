@@ -12,5 +12,5 @@
 </div>
 
 <div ng-repeat="comment in vm.comments | orderBy: '-created'">
-  {{comment.text}}
+  {{comment.userId}} said: {{comment.text}}
 </div>
