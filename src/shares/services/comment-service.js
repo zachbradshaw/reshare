@@ -1,4 +1,4 @@
-app.factory('commentService', ['$http', function($http) {
+app.factory('commentService', ['$http', '$log', function($http, $log) {
   function post(url, data) {
     return processAjaxPromise($http.post(url, data));
   }
@@ -22,9 +22,8 @@ app.factory('commentService', ['$http', function($http) {
       return get('/api/res/' + id + '/comments');
     },
 
-    addComment: function (id) {
-      alert('added comment');
-      return post('/api/res/' + id + '/comments', { text: 'text' });
+    addComment: function (id, comment) {
+      return post('/api/res/' + id + '/comments', { text: comment.text });
     }
   };
 }]);

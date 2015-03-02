@@ -4,24 +4,31 @@ app.config(['$routeProvider', function($routeProvider) {
     controllerAs: 'vm',
     templateUrl: 'comments/comments.html',
     resolve: {
-      comments: ['commentService', function (commentService) {
-        return commentService.getCommentList();
+      share: ['$route', 'shareService', function ($route, shareService) {
+        return shareService.getShare($route.current.params.id);
+      }],
+      comments: ['$route', 'commentService', function ($route, commentService) {
+        return commentService.getCommentList($route.current.params.id);
       }]
     }
   });
 }])
-.controller('commentsCtrl', ['$location', 'commentService', 'comments', 'Comment', function ($location, commentService, comments, Comment) {
+.controller('commentsCtrl', ['$location', 'share', 'Comment', 'comments', 'commentService', function ($location, share, Comment, comments, commentService) {
   var self = this;
 
-  self.comments = Comment();
-
-  self.getCommentList = function (id) {
-    commentService.getCommentList(id);
-  };
+  self.comments = comments;
+  self.share = share
+  self.comment = Comment();
 
   self.addComment = function () {
     console.log(self);
-    commentService.addComment(self.comments);
+    commentService.addComment(self.share._id, self.comment).then(function (comment) {
+      self.comments.push(comment);
+    });
   };
+
+  self.getCommentList = function () {
+    commentService.getCommentList(self.share._id)
+  }
 
 }]);

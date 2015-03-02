@@ -4,6 +4,8 @@ app.filter('ellipsis', function(){
     if (input.length > number) {
       var sliced = input.slice(0, number);
       var ellipsis = '...'
+    } else {
+      return input;
     };
     return sliced + ellipsis;
   };

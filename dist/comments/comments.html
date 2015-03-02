@@ -2,8 +2,8 @@
   Comments for this Resource
 </h1>
 
-<form ng-submit="vm.addComment(comment.subjectId)">
-  <textarea placeholder="Enter comment here" ng-model="vm.comments.text"></textarea>
+<form ng-submit="vm.addComment()">
+  <textarea placeholder="Enter comment here" ng-model="vm.comment.text"></textarea>
   <button>Submit</button>
 </form>
 
@@ -11,6 +11,6 @@
   Comments
 </div>
 
-<div ng-repeat="comment in vm.comments">
-
+<div ng-repeat="comment in vm.comments | orderBy: '-created'">
+  {{comment.text}}
 </div>

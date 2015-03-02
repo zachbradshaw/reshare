@@ -19,45 +19,34 @@ app.config(['$routeProvider', function($routeProvider) {
     controllerAs: 'vm',
     templateUrl: 'comments/comments.html',
     resolve: {
-      comments: ['commentService', function (commentService) {
-        return commentService.getCommentList();
+      share: ['$route', 'shareService', function ($route, shareService) {
+        return shareService.getShare($route.current.params.id);
+      }],
+      comments: ['$route', 'commentService', function ($route, commentService) {
+        return commentService.getCommentList($route.current.params.id);
       }]
     }
   });
 }])
-.controller('commentsCtrl', ['$location', 'commentService', 'comments', 'Comment', function ($location, commentService, comments, Comment) {
+.controller('commentsCtrl', ['$location', 'share', 'Comment', 'comments', 'commentService', function ($location, share, Comment, comments, commentService) {
   var self = this;
 
-  self.comments = Comment();
-
-  self.getCommentList = function (id) {
-    commentService.getCommentList(id);
-  };
+  self.comments = comments;
+  self.share = share
+  self.comment = Comment();
 
   self.addComment = function () {
     console.log(self);
-    commentService.addComment(self.comments);
+    commentService.addComment(self.share._id, self.comment).then(function (comment) {
+      self.comments.push(comment);
+    });
   };
 
+  self.getCommentList = function () {
+    commentService.getCommentList(self.share._id)
+  }
+
 }]);
-
-app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', 'usersService', function($location, StringUtil, usersService) {
-    var self = this;
-
-    self.isActive = function (path) {
-      // The default route is a special case.
-      if (path === '/') {
-        return $location.path() === '/';
-      }
-
-      return StringUtil.startsWith($location.path(), path);
-    };
-
-    self.currentUser = function () {
-      usersService.currentUser();
-    }
-  }]);
 
 app.filter('ellipsis', function(){
   return function(input, number){
@@ -65,6 +54,8 @@ app.filter('ellipsis', function(){
     if (input.length > number) {
       var sliced = input.slice(0, number);
       var ellipsis = '...'
+    } else {
+      return input;
     };
     return sliced + ellipsis;
   };
@@ -114,6 +105,12 @@ app.config(['$routeProvider', function($routeProvider) {
       shares: ['shareService', function (shareService) {
         return shareService.getShareList();
       }]
+      // upvotes: ['voteService', function (voteService) {
+      //   return voteService.upvote();
+      // }],
+      // downvotes: ['voteService', function(voteService) {
+      //   return voteService.downvote();
+      // }]
     }
   };
 
@@ -126,6 +123,10 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
 
   self.shares = shares;
+
+  // self.votes = function(upvotes, downvotes) {
+  //   return upvotes - downvotes;
+  // };
 
   self.upvote = function (share) {
     voteService.upvote(share);
@@ -144,6 +145,24 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
 }]);
+
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', 'usersService', function($location, StringUtil, usersService) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+
+      return StringUtil.startsWith($location.path(), path);
+    };
+
+    self.currentUser = function () {
+      usersService.currentUser();
+    }
+  }]);
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
@@ -231,7 +250,7 @@ app.factory('StringUtil', function() {
   };
 });
 
-app.factory('commentService', ['$http', function($http) {
+app.factory('commentService', ['$http', '$log', function($http, $log) {
   function post(url, data) {
     return processAjaxPromise($http.post(url, data));
   }
@@ -255,9 +274,8 @@ app.factory('commentService', ['$http', function($http) {
       return get('/api/res/' + id + '/comments');
     },
 
-    addComment: function (id) {
-      alert('added comment');
-      return post('/api/res/' + id + '/comments', { text: 'text' });
+    addComment: function (id, comment) {
+      return post('/api/res/' + id + '/comments', { text: comment.text });
     }
   };
 }]);
@@ -361,7 +379,7 @@ app.factory('usersService', ['$http', '$q', '$log', function($http, $q, $log) {
 
     currentUser: function () {
       $http.get('api/users/me').then(function (result) {
-        return result.data.userId;
+        console.log(result.data.userId);
       })
     },
 

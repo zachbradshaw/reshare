@@ -25,7 +25,7 @@ app.factory('usersService', ['$http', '$q', '$log', function($http, $q, $log) {
 
     currentUser: function () {
       $http.get('api/users/me').then(function (result) {
-        return result.data.userId;
+        console.log(result.data.userId);
       })
     },
 
