@@ -37,4 +37,8 @@ app.config(['$routeProvider', function($routeProvider) {
     // Clear our newUser property
     self.newUser = User();
   };
+
+  self.currentUser = function () {
+    usersService.currentUser();
+  }
 }]);

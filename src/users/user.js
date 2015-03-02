@@ -3,6 +3,8 @@ app.factory('User', function () {
     spec = spec || {};
     return {
       userId: spec.userId || '',
+      userPic: spec.userPic || '',
+      userNum: spec.userNum || '',
       role: spec.role || 'user'
     };
   };

@@ -41,20 +41,6 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.controller('MainNavCtrl',
-  ['$location', 'StringUtil', function($location, StringUtil) {
-    var self = this;
-
-    self.isActive = function (path) {
-      // The default route is a special case.
-      if (path === '/') {
-        return $location.path() === '/';
-      }
-
-      return StringUtil.startsWith($location.path(), path);
-    };
-  }]);
-
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/shares/new-share', {
     controller: 'NewShareCtrl',
@@ -124,14 +110,29 @@ app.config(['$routeProvider', function($routeProvider) {
     shareService.deleteShare(id);
   };
 
-<<<<<<< HEAD
   self.goToComments = function (id) {
     $location.path('/shares/' + id + '/comments');
   };
 
-=======
->>>>>>> 6d8b52c5c6b512cdd9c528851e4c0f1fc5e7a924
 }]);
+
+app.controller('MainNavCtrl',
+  ['$location', 'StringUtil', 'usersService', function($location, StringUtil, usersService) {
+    var self = this;
+
+    self.isActive = function (path) {
+      // The default route is a special case.
+      if (path === '/') {
+        return $location.path() === '/';
+      }
+
+      return StringUtil.startsWith($location.path(), path);
+    };
+
+    self.currentUser = function () {
+      usersService.currentUser();
+    }
+  }]);
 
 app.config(['$routeProvider', function($routeProvider) {
   var routeDefinition = {
@@ -157,6 +158,8 @@ app.factory('User', function () {
     spec = spec || {};
     return {
       userId: spec.userId || '',
+      userPic: spec.userPic || '',
+      userNum: spec.userNum || '',
       role: spec.role || 'user'
     };
   };
@@ -201,6 +204,10 @@ app.config(['$routeProvider', function($routeProvider) {
     // Clear our newUser property
     self.newUser = User();
   };
+
+  self.currentUser = function () {
+    usersService.currentUser();
+  }
 }]);
 
 // A little string utility... no biggie
@@ -339,6 +346,12 @@ app.factory('usersService', ['$http', '$q', '$log', function($http, $q, $log) {
   return {
     list: function () {
       return get('/api/users');
+    },
+
+    currentUser: function () {
+      $http.get('api/users/me').then(function (result) {
+        return result.data.userId;
+      })
     },
 
     getByUserId: function (userId) {

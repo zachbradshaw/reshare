@@ -3,7 +3,7 @@
 </h1>
 
 <form ng-submit="vm.addComment(comment.subjectId)">
-  <textarea placeholder="Enter comment here"></textarea>
+  <textarea placeholder="Enter comment here" ng-model="vm.comments.text"></textarea>
   <button>Submit</button>
 </form>
 

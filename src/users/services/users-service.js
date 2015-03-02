@@ -23,6 +23,12 @@ app.factory('usersService', ['$http', '$q', '$log', function($http, $q, $log) {
       return get('/api/users');
     },
 
+    currentUser: function () {
+      $http.get('api/users/me').then(function (result) {
+        return result.data.userId;
+      })
+    },
+
     getByUserId: function (userId) {
       if (!userId) {
         throw new Error('getByUserId requires a user id');
