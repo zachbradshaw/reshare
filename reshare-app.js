@@ -33,6 +33,7 @@ app.use(bodyParser.json());
 
 // use everyauth to handle oauth
 everyauth.github
+  .myHostname(process.env.HOST_NAME)
   .appId(process.env.GITHUB_CLIENT_ID)
   .appSecret(process.env.GITHUB_CLIENT_SECRET)
   .findOrCreateUser(function (session, accessToken, accessTokenExtra, githubUserMetadata) {

@@ -8,5 +8,5 @@ gulp.task('build:dev', ['clean'], function () {
 });
 
 gulp.task('build:release', ['clean'], function () {
-  return gulp.start('assets', 'html:release', 'bust-cache');
+  return gulp.start('assets', 'html:release');
 });
