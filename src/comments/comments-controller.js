@@ -24,6 +24,7 @@ app.config(['$routeProvider', function($routeProvider) {
     console.log(self);
     commentService.addComment(self.share._id, self.comment).then(function (comment) {
       self.comments.push(comment);
+      self.comment.text = '';
     });
   };
 
