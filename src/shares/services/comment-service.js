@@ -7,6 +7,10 @@ app.factory('commentService', ['$http', '$log', function($http, $log) {
     return processAjaxPromise($http.get(url));
   }
 
+  function remove(url, comment) {
+    return processAjaxPromise($http.delete(url, comment));
+  }
+
   function processAjaxPromise(p) {
     return p.then(function (result) {
       return result.data;
@@ -24,6 +28,10 @@ app.factory('commentService', ['$http', '$log', function($http, $log) {
 
     addComment: function (id, comment) {
       return post('/api/res/' + id + '/comments', { text: comment.text });
+    },
+
+    deleteComment: function (res_id, id, comment) {
+      return remove('/api/res/' + res_id + '/comments/' + id, comment);
     }
   };
 }]);

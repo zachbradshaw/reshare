@@ -1,0 +1,64 @@
+////////// COMMENT FORM /////////////
+
+.comment-form {
+  margin-top: 1em;
+  margin-bottom: 3em;
+}
+
+.comment-text-area {
+  width: 400px;
+  height: 100px;
+}
+
+.submit-button {
+  border-radius: 5px;
+  font-size: 0.7em;
+  padding: 0.5em;
+  color: $accent-color;
+  background: $bg-color;
+  border: 1px solid black;
+}
+
+.submit-button:hover {
+  cursor: pointer;
+  background-color: $accent-color;
+  color: $bg-color;
+}
+
+////////// COMMENTS CONTAINER ////////
+
+.comments-container {
+  background: #F0F3FC;
+  padding: 0.5em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+  border: 1px solid #C4CFF3;
+}
+
+.user-name {
+  font-size: 0.8em;
+}
+
+.user-name span {
+  color: #6067B0;
+}
+
+.user-name span:hover {
+  cursor: pointer;
+}
+
+.comment {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.comment-button {
+  font-size: 0.8em;
+  width: 3em;
+  margin-right: 5px;
+}
+
+.comment-button:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
