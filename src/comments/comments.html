@@ -10,7 +10,7 @@
 </form>
 
 
-<div class="comments-container"ng-repeat="comment in vm.comments | orderBy: '-created'">
+<div class="comments-container"ng-repeat="comment in vm.comments | orderBy: 'created'">
 
   <div class="user-name">
     <span>{{comment.userId}}</span> said at {{comment.created | date:"MM/dd/yyyy '@' h:mma"}}:
@@ -22,6 +22,6 @@
 
   <div>
     <span class="comment-button">reply</span>
-    <span class="comment-button" ng-click="vm.deleteComment()">delete</span>
+    <span class="comment-button" ng-click="vm.deleteComment(comment)">delete</span>
   </div>
 </div>

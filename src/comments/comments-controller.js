@@ -32,8 +32,10 @@ app.config(['$routeProvider', function($routeProvider) {
     commentService.getCommentList(self.share._id)
   };
 
-  self.deleteComment = function () {
-    commentService.deleteComment(self.share._id, self.comment);
+  self.deleteComment = function (comment) {
+    commentService.deleteComment(comment).then(function () {
+      return self.comments;
+    });
   };
 
 }]);

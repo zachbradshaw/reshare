@@ -30,8 +30,8 @@ app.factory('commentService', ['$http', '$log', function($http, $log) {
       return post('/api/res/' + id + '/comments', { text: comment.text });
     },
 
-    deleteComment: function (res_id, id, comment) {
-      return remove('/api/res/' + res_id + '/comments/' + id, comment);
+    deleteComment: function (comment) {
+      return remove('/api/res/' + comment.subjectId + '/comments/' + comment._id);
     }
   };
 }]);
