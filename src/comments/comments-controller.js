@@ -13,11 +13,11 @@ app.config(['$routeProvider', function($routeProvider) {
     }
   });
 }])
-.controller('commentsCtrl', ['$location', 'share', 'Comment', 'comments', 'commentService', function ($location, share, Comment, comments, commentService) {
+.controller('commentsCtrl', ['share', 'Comment', 'comments', 'commentService', function (share, Comment, comments, commentService) {
   var self = this;
 
   self.comments = comments;
-  self.share = share
+  self.share = share;
   self.comment = Comment();
 
   self.addComment = function () {
@@ -30,10 +30,10 @@ app.config(['$routeProvider', function($routeProvider) {
 
   self.getCommentList = function () {
     commentService.getCommentList(self.share._id)
-  }
+  };
 
   self.deleteComment = function () {
-    commentService.deleteComment(self.share._id)
-  }
+    commentService.deleteComment(self.share._id, self.comment);
+  };
 
 }]);
