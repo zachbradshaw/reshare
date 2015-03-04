@@ -33,9 +33,7 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.deleteComment = function (comment) {
-    commentService.deleteComment(comment).then(function () {
-      return self.comments;
-    });
+    commentService.deleteComment(comment);
   };
 
 }]);

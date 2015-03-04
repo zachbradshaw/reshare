@@ -48,9 +48,7 @@ app.config(['$routeProvider', function($routeProvider) {
   };
 
   self.deleteComment = function (comment) {
-    commentService.deleteComment(comment).then(function () {
-      return self.comments;
-    });
+    commentService.deleteComment(comment);
   };
 
 }]);
@@ -130,12 +128,6 @@ app.config(['$routeProvider', function($routeProvider) {
       shares: ['shareService', function (shareService) {
         return shareService.getShareList();
       }]
-      // upvotes: ['voteService', function (voteService) {
-      //   return voteService.upvote();
-      // }],
-      // downvotes: ['voteService', function(voteService) {
-      //   return voteService.downvote();
-      // }]
     }
   };
 
@@ -148,10 +140,7 @@ app.config(['$routeProvider', function($routeProvider) {
   var self = this;
 
   self.shares = shares;
-
-  // self.votes = function(upvotes, downvotes) {
-  //   return upvotes - downvotes;
-  // };
+  self.share = Share();
 
   self.upvote = function (share) {
     voteService.upvote(share);

@@ -13,7 +13,7 @@
 <div class="comments-container"ng-repeat="comment in vm.comments | orderBy: 'created'">
 
   <div class="user-name">
-    <span>{{comment.userId}}</span> said at {{comment.created | date:"MM/dd/yyyy '@' h:mma"}}:
+    <span>{{comment.userId}}</span> said at {{comment.created | date:"MM/dd/yyyy '@' h:mm a"}}:
   </div>
 
   <div class="comment">

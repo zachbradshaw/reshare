@@ -1,7 +1,7 @@
 <h1 class="shares-title">Resources</h1>
 
 <ul>
-  <li class="list-item" ng-repeat="share in vm.shares">
+  <li class="list-item" ng-repeat="share in vm.shares | orderBy: 'created'">
     <div class="vote-container">
       <div class="vote" ng-click="vm.upvote(share._id)">^</div>
       <div class="vote-count">{{share.upvotes - share.downvotes}}</div>
