@@ -132,6 +132,16 @@ button {
   background: #417C81;
   height: 100%; }
 
+@media only screen and (max-width: 750px) {
+  .main-nav-link-container {
+    display: block;
+    width: 100%;
+    color: black;
+    margin-bottom: 3em; }
+  .main-nav-link {
+    display: block;
+    padding: 3px; } }
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important; }
 
@@ -183,7 +193,7 @@ button {
     cursor: pointer; }
 
 /* Smartphones (portrait and landscape) ----------- */
-@media only screen and (max-device-width: 480px) {
+@media only screen and (max-width: 750px) {
   .new-resource__container {
     width: 100%; }
   .new-resource__header {
@@ -258,19 +268,10 @@ button {
   margin-top: -2px;
   margin-bottom: -3px; }
 
-/* Smartphones (portrait and landscape) ----------- */
-@media only screen and (min-device-width: 300px) and (max-device-width: 480px) {
+@media only screen and (max-width: 750px) {
   .list-item {
     width: 100%;
-    padding-bottom: 1em; }
-  .main-nav-link-container {
-    display: block;
-    width: 100%;
-    color: black;
-    margin-bottom: 3em; }
-  .main-nav-link {
-    display: block;
-    padding: 3px; } }
+    padding-bottom: 1em; } }
 
 .comment-form {
   margin-top: 1em;
@@ -325,7 +326,7 @@ button {
   text-decoration: underline; }
 
 /* Smartphones (portrait and landscape) ----------- */
-@media only screen and (min-device-width: 300px) and (max-device-width: 480px) {
+@media only screen and (max-width: 750px) {
   /* Styles */
   .comment-form {
     width: 100%;

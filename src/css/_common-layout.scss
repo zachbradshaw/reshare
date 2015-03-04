@@ -54,3 +54,19 @@
   background: #417C81;
   height: 100%;
 }
+
+@media only screen and (max-width : 750px) {
+
+  .main-nav-link-container {
+    display: block;
+    width: 100%;
+    color: black;
+    margin-bottom: 3em;
+  }
+
+  .main-nav-link {
+    display: block;
+    padding: 3px;
+  }
+
+}
