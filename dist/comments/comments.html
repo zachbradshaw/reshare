@@ -4,7 +4,7 @@
 
 <form class="comment-form" ng-submit="vm.addComment()">
   <textarea class="comment-text-area" placeholder="Enter comment here" ng-model="vm.comment.text"></textarea>
-  <div>
+  <div class="submit-button-container">
     <button class="submit-button">Add Comment</button>
   </div>
 </form>
@@ -13,7 +13,7 @@
 <div class="comments-container"ng-repeat="comment in vm.comments | orderBy: 'created'">
 
   <div class="user-name">
-    <span>{{comment.userId}}</span> said at {{comment.created | date:"MM/dd/yyyy '@' h:mma"}}:
+    <span>{{comment.userId}}</span> - {{comment.created | date:"MM/dd/yyyy',' h:mma"}}:
   </div>
 
   <div class="comment">
