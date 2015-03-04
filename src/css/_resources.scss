@@ -2,6 +2,7 @@
   width: 50%;
   margin: auto;
   text-align: center;
+}
 
   .new-resource__header {
     font-size: 4em;
@@ -32,4 +33,28 @@
       cursor: pointer;
     }
   }
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen
+// and (min-device-width : 300px)
+and (max-device-width : 480px) {
+
+  .new-resource__container {
+    width: 100%;
+  }
+
+  .new-resource__header {
+    font-size: 2em;
+  }
+
+  .new-resource__url,
+  .new-resource__description,
+  .new-resource__tags {
+    padding: 1em;
+    width: 75%;
+    display: block;
+    margin: .75em;
+    font-size: 1.3em;
+  }
+
 }

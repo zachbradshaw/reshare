@@ -79,3 +79,27 @@
   margin-top: -2px;
   margin-bottom: -3px;
 }
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 300px)
+and (max-device-width : 480px) {
+
+.list-item {
+  width: 100%;
+  padding-bottom: 1em;
+}
+
+.main-nav-link-container {
+  display: block;
+  width: 100%;
+  color: black;
+  margin-bottom: 3em;
+}
+
+.main-nav-link {
+  display: block;
+  padding: 3px;
+}
+
+}
