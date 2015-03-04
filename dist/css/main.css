@@ -92,7 +92,7 @@ button {
   margin-bottom: 1.5em; }
 
 .main-nav {
-  background: #6067b0;
+  background: #0E494E;
   color: #FFF;
   padding: 0; }
 
@@ -113,7 +113,7 @@ button {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  padding: 1.5em 1em;
+  padding: 1.65em 1em;
   color: inherit; }
 
 .main-nav-link-container {
@@ -129,7 +129,8 @@ button {
   text-decoration: underline; }
 
 .main-nav-link.active {
-  background: #4d5196; }
+  background: #417C81;
+  height: 100%; }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important; }
@@ -145,6 +146,12 @@ button {
 
 .add-user__btn {
   border-radius: .25em; }
+
+.users-link {
+  color: #529CA3; }
+
+.users-link:hover {
+  color: #417C81; }
 
 .new-resource__container {
   width: 50%;
@@ -167,11 +174,11 @@ button {
   margin: .5em;
   width: 75%;
   background: #FFF;
-  border: 1px solid black;
+  border: 1px solid #0E494E;
   border-radius: .25em;
-  color: #6067B0; }
+  color: #417C81; }
   .new-resource__submit:hover {
-    background-color: #6067B0;
+    background-color: #417C81;
     color: #FFF;
     cursor: pointer; }
 
@@ -192,16 +199,17 @@ button {
   margin-top: -0.5em; }
 
 .list-item {
-  background: #F0F3FC;
+  background: #D6EAEA;
   padding: 0.5em;
   margin-top: 0.25em;
   margin-bottom: 0.25em; }
 
 .link-description {
-  font-size: 1.25em; }
+  font-size: 1.25em;
+  color: #529CA3; }
 
 .link-description:hover {
-  color: #2186DE; }
+  color: #417C81; }
 
 .link-website {
   font-size: 0.6em;
@@ -277,27 +285,27 @@ button {
   border-radius: 5px;
   font-size: 0.7em;
   padding: 0.5em;
-  color: #6067B0;
+  color: #417C81;
   background: #FFF;
-  border: 1px solid black; }
+  border: 1px solid #0E494E; }
 
 .submit-button:hover {
   cursor: pointer;
-  background-color: #6067B0;
+  background-color: #417C81;
   color: #FFF; }
 
 .comments-container {
-  background: #F0F3FC;
+  background: #D6EAEA;
   padding: 0.5em;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
-  border: 1px solid #C4CFF3; }
+  border: 1px solid #C6E2E2; }
 
 .user-name {
   font-size: 0.8em; }
 
 .user-name span {
-  color: #6067B0; }
+  color: #417C81; }
 
 .user-name span:hover {
   cursor: pointer; }

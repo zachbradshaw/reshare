@@ -9,7 +9,7 @@
 }
 
 .main-nav {
-  background: #6067b0;
+  background: #0E494E;
   color: #FFF;
   padding: 0;
 }
@@ -30,7 +30,7 @@
 
 .main-nav-link {
   display: inline-flex;
-  padding: 1.5em 1em;
+  padding: 1.65em 1em;
   color: inherit;
 }
 
@@ -51,5 +51,6 @@
 }
 
 .main-nav-link.active {
-  background: #4d5196;
+  background: #417C81;
+  height: 100%;
 }

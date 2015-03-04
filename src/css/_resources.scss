@@ -24,11 +24,11 @@
     margin: .5em;
     width: 75%;
     background: $bg-color;
-    border: 1px solid black;
+    border: 1px solid #0E494E;
     border-radius: .25em;
-    color: $accent-color;
+    color: #417C81;
     &:hover {
-      background-color: $accent-color;
+      background-color: #417C81;
       color: $bg-color;
       cursor: pointer;
     }

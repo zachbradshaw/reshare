@@ -17,25 +17,25 @@
   border-radius: 5px;
   font-size: 0.7em;
   padding: 0.5em;
-  color: $accent-color;
+  color: #417C81;
   background: $bg-color;
-  border: 1px solid black;
+  border: 1px solid #0E494E;
 }
 
 .submit-button:hover {
   cursor: pointer;
-  background-color: $accent-color;
+  background-color: #417C81;
   color: $bg-color;
 }
 
 ////////// COMMENTS CONTAINER ////////
 
 .comments-container {
-  background: #F0F3FC;
+  background: #D6EAEA;
   padding: 0.5em;
   margin-top: 0.25em;
   margin-bottom: 0.25em;
-  border: 1px solid #C4CFF3;
+  border: 1px solid #C6E2E2;
 }
 
 .user-name {
@@ -43,7 +43,7 @@
 }
 
 .user-name span {
-  color: #6067B0;
+  color: #417C81;
 }
 
 .user-name span:hover {

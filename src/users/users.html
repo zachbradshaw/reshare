@@ -15,7 +15,7 @@
 
 <ul>
   <li ng-repeat="user in vm.users | orderBy:'userId'">
-    <a href="#/users/{{user.userId}}">{{user.userId}}</a>
+    <a class="users-link" href="#/users/{{user.userId}}">{{user.userId}}</a>
   </li>
 </ul>
 
